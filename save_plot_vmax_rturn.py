@@ -133,7 +133,7 @@ ax = axes[0]
 def fit_rotcur(galaxy,vmode,e_Vrot,survey):
 	try:
 
-		data = fits.getdata("./models/%s.%s_model.fits"%(galaxy,vmode))
+		data = fits.getdata("./models/%s.%s.1D_model.fits"%(galaxy,vmode))
 
 		R = data[0]
 		V = data[1]
