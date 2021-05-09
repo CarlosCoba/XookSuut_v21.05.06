@@ -185,7 +185,7 @@ def M_tab(pa,inc,x0,y0,theta_b,rings, delta,k, shape, vel_map, pixel_scale=1,vmo
 		weigths_k,weigths_j = np.asarray(weigths_k),np.asarray(weigths_j)
 
 
-		w_rot, w_rad, w_tan = trigonometric_weights(xy_mesh,pa,inc,x0,y0,0,mask,vmode)
+		w_rot, w_rad, w_tan = trigonometric_weights(xy_mesh,pa,inc,x0,y0,theta_b,mask,vmode)
 
 
 
