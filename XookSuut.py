@@ -102,7 +102,7 @@ plot of the asymptotic velocity estimated with Vt
 
 The following directories must be created in the working directory.
 ./plots
-./fits
+./models
 ./vmax_rturn
 """
 
