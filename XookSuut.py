@@ -140,7 +140,7 @@ if __name__ == "__main__":
 		config = sys.argv[28]
 		e_ISM = sys.argv[29]
 
-		if VSYS != "": float(sys.argv[5])
+		if VSYS != "": VSYS = eval(sys.argv[5])
 		if n_it == "": n_it = 5
 		if n_it != "": n_it = int(float(n_it))
 		if delta == "":
