@@ -109,6 +109,7 @@ def bisym_mod(vel, evel, guess0, vary, n_it, rstart, rfinal, ring_space, frac_pi
 				Rings = R_pos
 				std_errors = Errors
 				GUESS = [vrot_tab, vrad_tab, PA, INC, XC, YC, VSYS, vtan_tab, THETA]
+				GUESS = [Vrot, Vrad, PA, INC, XC, YC, VSYS, Vtan, THETA]
 				
 
 
@@ -116,12 +117,9 @@ def bisym_mod(vel, evel, guess0, vary, n_it, rstart, rfinal, ring_space, frac_pi
 
 
 		if np.nanmean(Vrad) <0 or np.nanmean(Vtan) < 0:
-			print("HEREEEEEEEEEEEEEEEEEEEEE")
-			print("THETA = ", THETA)
 			GUESS[-1] = GUESS[-1] - 90
 			NEW = GUESS[-1]
 			if NEW < 0: GUESS[-1] = 180 + NEW
-			print("GUESS = ", GUESS)
 
 			VARY = [True, True, False,False,False,False,False,True,True]
 			v_2D_mdl_,  kin_2D_modls_, vrot_ , vrad_,_vsys0_,  pa0_, inc0_, x0_, y0_, vtan_, theta_b_, xi_sq_, n_data_, Errors_ = fit(shape, vel, evel, GUESS, VARY, vmode, config, Rings, fit_method = "Powell", e_ISM = e_ISM, pixel_scale = pixel_scale, ring_space = ring_space )
