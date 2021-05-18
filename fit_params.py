@@ -259,7 +259,10 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 			for res,const in zip(config_file(config),constant_params):
 				param, fit, val, vmin, vmax = str(res["param"]), bool(float(res["fit"])), eval(res["val"]), eval(res["min"]), eval(res["max"])
 				if param != "phi_b":  
-					fit_params.add(param, value = constant_params[k], vary = fit, min = vmin, max = vmax)
+					if fit == False:
+						fit_params.add(param, value = constant_params[k], vary = fit)
+					else:
+						fit_params.add(param, value = constant_params[k], vary = fit, min = vmin, max = vmax)
 				k = k+1
 
 
@@ -420,7 +423,10 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 			for res,const in zip(config_file(config),constant_params):
 				param, fit, val, vmin, vmax = str(res["param"]), bool(float(res["fit"])), eval(res["val"]), eval(res["min"]), eval(res["max"])
 				if param != "phi_b":  
-					fit_params.add(param, value = constant_params[k], vary = fit, min = vmin, max = vmax)
+					if fit == False:
+						fit_params.add(param, value = constant_params[k], vary = fit)
+					else:
+						fit_params.add(param, value = constant_params[k], vary = fit, min = vmin, max = vmax)
 				k = k+1
 
 
@@ -592,7 +598,10 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 			k = 0
 			for res,const in zip(config_file(config),constant_params):
 				param, fit, val, vmin, vmax = str(res["param"]), bool(float(res["fit"])), eval(res["val"]), eval(res["min"]), eval(res["max"]) 
-				fit_params.add(param, value = constant_params[k], vary = fit, min = vmin, max = vmax)
+				if fit == False:
+					fit_params.add(param, value = constant_params[k], vary = fit)
+				else:
+					fit_params.add(param, value = constant_params[k], vary = fit, min = vmin, max = vmax)
 				k = k+1
 
 
