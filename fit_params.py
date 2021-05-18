@@ -140,7 +140,8 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 	X = np.arange(0, nx, 1)
 	Y = np.arange(0, ny, 1)
 	XY_mesh = np.meshgrid(X,Y)
-
+	
+	X0,Y0 = X0+1e-3,Y0+1e-3 
 	r_n = Rings(XY_mesh,pa0*np.pi/180,inc0*np.pi/180,X0,Y0,pixel_scale)
 
 
