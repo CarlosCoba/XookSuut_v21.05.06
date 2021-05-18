@@ -257,9 +257,9 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 		else:
 			k = 0
 			for res,const in zip(config_file(config),constant_params):
-				#param, fit, val, vmin, vmax = str(res["param"]), bool(float(res["fit"])), float(res["val"]), float(res["min"]), float(res["max"]) 
-				param, fit, val, vmin, vmax = str(res["param"]), bool(float(res["fit"])), eval(res["val"]), eval(res["min"]), eval(res["max"]) 
-				fit_params.add(param, value = constant_params[k], vary = fit, min = vmin, max = vmax)
+				param, fit, val, vmin, vmax = str(res["param"]), bool(float(res["fit"])), eval(res["val"]), eval(res["min"]), eval(res["max"])
+				if param != "phi_b":  
+					fit_params.add(param, value = constant_params[k], vary = fit, min = vmin, max = vmax)
 				k = k+1
 
 
@@ -286,9 +286,6 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 		red_chi = out.redchi
 
 
-		if inc > 85: inc = 80
-		#if inc < 20: inc = 30
-		if pa > 359: pa = pa -10
 
 
 		from create_2D_vlos_model import best_2d_model
@@ -421,9 +418,9 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 		else:
 			k = 0
 			for res,const in zip(config_file(config),constant_params):
-				#param, fit, val, vmin, vmax = str(res["param"]), bool(float(res["fit"])), float(res["val"]), float(res["min"]), float(res["max"]) 
-				param, fit, val, vmin, vmax = str(res["param"]), bool(float(res["fit"])), eval(res["val"]), eval(res["min"]), eval(res["max"]) 
-				fit_params.add(param, value = constant_params[k], vary = fit, min = vmin, max = vmax)
+				param, fit, val, vmin, vmax = str(res["param"]), bool(float(res["fit"])), eval(res["val"]), eval(res["min"]), eval(res["max"])
+				if param != "phi_b":  
+					fit_params.add(param, value = constant_params[k], vary = fit, min = vmin, max = vmax)
 				k = k+1
 
 
@@ -449,12 +446,6 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 
 		N_free = out.nfree
 		red_chi = out.redchi
-
-		if inc > 85: inc = 80
-		if inc < 20: inc = 30
-
-
-		if pa > 359: pa = pa -10
 
 
 		from create_2D_vlos_model import best_2d_model
@@ -600,7 +591,6 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 		else:
 			k = 0
 			for res,const in zip(config_file(config),constant_params):
-				#param, fit, val, vmin, vmax = str(res["param"]), bool(float(res["fit"])), float(res["val"]), float(res["min"]), float(res["max"]) 
 				param, fit, val, vmin, vmax = str(res["param"]), bool(float(res["fit"])), eval(res["val"]), eval(res["min"]), eval(res["max"]) 
 				fit_params.add(param, value = constant_params[k], vary = fit, min = vmin, max = vmax)
 				k = k+1
@@ -639,12 +629,6 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 
 
 
-		if inc > 85: inc = 80
-		if inc < 20: inc = 30
-
-
-
-
 		from create_2D_vlos_model import best_2d_model
 		V_k = [Vrot, Vrad, Vtan] 
 		vlos_2D_model = best_2d_model(vmode, shape,V_k, pa, inc, x0, y0, Vsys, rings_pos, ring_space = ring_space, phi_b = theta, pixel_scale = pixel_scale) 
@@ -659,7 +643,6 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 
 
 		return vlos_2D_model, kin_2D_models, Vrot, Vrad, Vsys,  pa, inc , x0, y0, Vtan, theta, red_chi, N_free, Std_errors
-
 
 
 
