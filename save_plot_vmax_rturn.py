@@ -52,13 +52,13 @@ def bertola(r_sky,v_max,k,gamma):
 	return v
 
 
-
+vmax_rot = 400.
 def fit_RC(r_array,v_array,method):
 	max_R = np.nanmax(r_array)
 	R = np.linspace(0.1,max_R,100)
 	if method == "exp":
 		try:
-			popt, pcov = curve_fit(exp, r_array, v_array, bounds=([0,0], [350.,60]))
+			popt, pcov = curve_fit(exp, r_array, v_array, bounds=([0,0], [vmax_rot,60]))
 			vmax,r_turn = popt
 			best_fit = exp(r_array,vmax,r_turn)
 			best_fit_interp = exp(R,vmax,r_turn)
@@ -68,7 +68,7 @@ def fit_RC(r_array,v_array,method):
 
 	if method == "arctan":
 		try:
-			popt, pcov = curve_fit(arctan, r_array, v_array, bounds=([0,0], [350.,60]))
+			popt, pcov = curve_fit(arctan, r_array, v_array, bounds=([0,0], [vmax_rot,60]))
 			vmax,r_turn = popt
 			best_fit = arctan(r_array,vmax,r_turn)
 			best_fit_interp = arctan(R,vmax,r_turn)
@@ -78,7 +78,7 @@ def fit_RC(r_array,v_array,method):
 
 	if method == "tanh":
 		try:
-			popt, pcov = curve_fit(tanh, r_array, v_array, bounds=([0,0], [350.,60]))
+			popt, pcov = curve_fit(tanh, r_array, v_array, bounds=([0,0], [vmax_rot,60]))
 			vmax,r_turn = popt
 			best_fit = tanh(r_array,vmax,r_turn)
 			best_fit_interp = tanh(R,vmax,r_turn)
@@ -89,7 +89,7 @@ def fit_RC(r_array,v_array,method):
 	if method == "tanh-linear":
 		try:
 			# R2 can be negative, common values 0.010 < R2 < 0.070
-			popt, pcov = curve_fit(tanh_linear, r_array, v_array, bounds=([0,0,0], [350.,60,0.1]))
+			popt, pcov = curve_fit(tanh_linear, r_array, v_array, bounds=([0,0,0], [vmax_rot,60,0.1]))
 			vmax,r_turn,R2 = popt
 			best_fit = tanh_linear(r_array,vmax,r_turn,R2)
 			best_fit_interp = tanh_linear(R,vmax,r_turn,R2)
@@ -100,7 +100,7 @@ def fit_RC(r_array,v_array,method):
 
 	if method == "multi-param":
 		try:
-			popt, pcov = curve_fit(multi_param, r_array, v_array, bounds=([0,0,-1], [350.,60,12]))
+			popt, pcov = curve_fit(multi_param, r_array, v_array, bounds=([0,0,-1], [vmax_rot,60,12]))
 			vmax, r_turn,gamma = popt
 			best_fit = multi_param(r_array,vmax,r_turn,gamma)
 			best_fit_interp = multi_param(R,vmax,r_turn,gamma)
@@ -111,7 +111,7 @@ def fit_RC(r_array,v_array,method):
 
 	if method == "Bertola+1991":
 		try:
-			popt, pcov = curve_fit(bertola, r_array, v_array, bounds=([0,0,1.], [350.,60,3/2.]))
+			popt, pcov = curve_fit(bertola, r_array, v_array, bounds=([0,0,1.], [vmax_rot,60,3/2.]))
 			vmax, k,gamma = popt
 			best_fit = bertola(r_array,vmax,k,gamma)
 			best_fit_interp = bertola(R,vmax,k,gamma)
@@ -137,6 +137,7 @@ def fit_rotcur(galaxy,vmode,e_Vrot,survey):
 
 		R = data[0]
 		V = data[1]
+		
 		R_plot = np.linspace(0.1,np.nanmax(R),100)
 
 		min_vel,max_vel = int(np.nanmin(V)),int(np.nanmax(V))
@@ -150,7 +151,7 @@ def fit_rotcur(galaxy,vmode,e_Vrot,survey):
 			best_params = fit_RC(R,V,i)
 			data = best_params[:-1]
 			Vmax,Rturn = data[0],data[1]
-			if Vmax > 340: Vmax = 0 
+			if Vmax >= vmax_rot: Vmax = 0 
 			if Vmax == 0: Vmax = np.nan 
 			temp.append(Vmax)
 			temp.append(Rturn)
@@ -163,7 +164,8 @@ def fit_rotcur(galaxy,vmode,e_Vrot,survey):
 			ax.plot(R,V,"k", linestyle='-', alpha = 0.6, linewidth=0.8,zorder = 100)#, label = "$\mathrm{V_{t}}$")
 			ax.errorbar(R,V, yerr=[e_Vrot[0],e_Vrot[1]], fmt='o', color = "k",markersize = 1, elinewidth = 0.6,capsize  = 1.5)
 			ax.fill_between(R, V-e_Vrot[0], V+e_Vrot[1], color = "darkgray", alpha = 0.4)
-			ax.plot(R_plot,best_params[-1],label = i,linewidth=0.5)
+			if len(R_plot) == len(best_params[-1]):
+				ax.plot(R_plot,best_params[-1],label = i,linewidth=0.5)
 
 
 		#The average values for Vmax and Rturn
