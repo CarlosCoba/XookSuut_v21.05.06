@@ -69,8 +69,10 @@ def rad_mod(vel, evel, guess0, vary, n_it, rstart, rfinal, ring_space, frac_pixe
 					vrad_tab = np.append(vrad_tab,v_rad_k)
 					R_pos = np.append(R_pos,ring)
 
-
-
+			if np.nanmean(vrot_tab) < 0 :
+				vrot_tab = abs(vrot_tab)
+				pa0 = pa0 - 180
+				if pa0 <0 : pa0 = pa0 + 360
 
 
 			guess = [vrot_tab+1,vrad_tab+1,pa0,inc0,x0,y0,vsys0, vtan_tab,theta_b]
