@@ -92,6 +92,12 @@ def bisym_mod(vel, evel, guess0, vary, n_it, rstart, rfinal, ring_space, frac_pi
 							vtan_tab = np.append(vtan_tab,0)
 							R_pos = np.append(R_pos,ring)
 	
+			if np.nanmean(vrot_tab) < 0 :
+				vrot_tab = abs(vrot_tab)
+				pa0 = pa0 - 180
+				if pa0 <0 : pa0 = pa0 + 360
+
+					
 			guess = [vrot_tab,vrad_tab,pa0,inc0,x0,y0,vsys0, vtan_tab,theta_b]
 			v_2D_mdl,  kin_2D_modls,  vrot , vrad, vsys0,  pa0, inc0, x0, y0, vtan,theta_b, xi_sq, n_data, Errors = fit(shape, vel, evel, guess, vary, vmode, config, R_pos, fit_method = "Powell", e_ISM = e_ISM, pixel_scale = pixel_scale, ring_space = ring_space )
 
