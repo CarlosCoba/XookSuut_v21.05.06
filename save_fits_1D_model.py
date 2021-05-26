@@ -3,7 +3,7 @@ from astropy.io import fits
 
 
 
-def save_model(galaxy,vmode,R,Vrot,e_Vrot,Vrad,e_Vrad,Vtan,e_Vtan,PA,INC,XC,YC,VSYS,save = 1):
+def save_model(galaxy,vmode,R,Vrot,e_Vrot,Vrad,e_Vrad,Vtan,e_Vtan,PA,INC,XC,YC,VSYS,THETA,PA_BAR_MAJOR,PA_BAR_MINOR,save = 1):
 	#m = len(MODELS)
 	n = len(Vrot)
 
@@ -74,6 +74,12 @@ def save_model(galaxy,vmode,R,Vrot,e_Vrot,Vrad,e_Vrad,Vtan,e_Vtan,PA,INC,XC,YC,V
 		hdu.header['VSYS'] = VSYS
 		hdu.header['XC'] = XC
 		hdu.header['YC'] = YC
+		
+		if vmode == "bisymmetric":
+			hdu.header['HIERARCH THETA-BAR'] = THETA
+			hdu.header['HIERARCH PA-BAR-MAJOR'] = PA_BAR_MAJOR
+			hdu.header['HIERARCH PA-BAR-MINOR'] = PA_BAR_MINOR
+
 		
 		hdu.writeto("./models/%s.%s.1D_model.fits"%(galaxy,vmode),overwrite=True)
 
