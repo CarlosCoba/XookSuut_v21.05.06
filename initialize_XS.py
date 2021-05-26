@@ -104,7 +104,7 @@ def rotcur(galaxy, vel_map2D,evel_map,SN,VSYS,PA,INC,X0,Y0,n_it =5, pixel_scale=
 		else:
 
 			PA,INC,XC,YC,VSYS,THETA,R,Vrot,Vrad,Vtan,VLOS_2D_MODEL, KIN_2D_MODELS,CHISQ_r,errors_fit = init_models(vel_ha,evel_map,guess,vary, n_it, sigma, delta, rstart, rfinal, ring_space, frac_pixel, r_bar_max,pixel_scale,vmode,errors, config, e_ISM)
-			PA_BAR_MAJOR,PA_BAR_MINOR = 0,0
+			PA_BAR_MAJOR,PA_BAR_MINOR,THETA = 0,0,0
 
 		return PA,INC,XC,YC,VSYS,THETA,R,Vrot,Vrad,Vtan,VLOS_2D_MODEL, KIN_2D_MODELS,PA_BAR_MAJOR,PA_BAR_MINOR,CHISQ_r,errors_fit
 
@@ -212,8 +212,7 @@ def rotcur(galaxy, vel_map2D,evel_map,SN,VSYS,PA,INC,X0,Y0,n_it =5, pixel_scale=
 
 
 	from save_fits_1D_model import save_model
-	s = save_model(galaxy,vmode,R,Vrot,e_Vrot,Vrad,e_Vrad,Vtan,e_Vtan,PA,INC,XC,YC,VSYS,save=save_file)
-
+	s = save_model(galaxy,vmode,R,Vrot,e_Vrot,Vrad,e_Vrad,Vtan,e_Vtan,PA,INC,XC,YC,VSYS,THETA,PA_BAR_MAJOR,PA_BAR_MINOR,save=save_file)
 
 	from save_fits_2D_model import save_vlos_model
 	if vmode == "bisymmetric":
