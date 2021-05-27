@@ -572,7 +572,7 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 				if vr20[iy] == 0 and vt20[iy] ==0:
 					vary_vrad = False
 					vary_vtan = False
-					theta0,vary_theta = 0, False
+					vary_theta = False
 
 
 				else:
