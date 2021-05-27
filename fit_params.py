@@ -125,6 +125,7 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 	"""
 	vrot0,vr20,pa0,inc0,X0,Y0,vsys0,vt20,theta0 = guess
 	constant_params = [pa0,inc0,X0,Y0,vsys0,theta0]
+	vary_vrot,vary_vrad,vary_pa,vary_inc,vary_xc,vary_yc,vary_vsys,vary_theta,vary_vtan = vary
 
 	[ny,nx] = shape
 
@@ -571,6 +572,7 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 				if vr20[iy] == 0 and vt20[iy] ==0:
 					vary_vrad = False
 					vary_vtan = False
+					theta0,vary_theta = 0, False
 
 
 				else:
@@ -593,7 +595,7 @@ def fit(shape, vel_map, e_vel_map, guess,vary,vmode,config, rings_pos, ring_spac
 			fit_params.add('inc', value=inc0, vary = vary[3], min = 0, max = 90)
 			fit_params.add('x0', value=X0, vary = vary[4], min = 0, max = nx)
 			fit_params.add('y0', value=Y0, vary = vary[5], min = 0, max = nx)
-			fit_params.add('phi_b', value=theta0, vary = vary[7], min = 0 , max = 360)
+			fit_params.add('phi_b', value=theta0, vary = vary_theta, min = 0 , max = 360)
 	
 		else:
 			k = 0
