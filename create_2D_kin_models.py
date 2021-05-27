@@ -20,7 +20,11 @@ def Rings(xy_mesh,pa,inc,x0,y0,pixel_scale):
 def bidi_models(vmode,shape,V, pa, inc, x0, y0, Vsys, rings_pos, ring_space,pixel_scale, phi_b = None):
 
 
-	Vrot, Vrad, Vtan = V[0], V[1], V[2]
+	Vrot, Vrad, Vtan = np.array(V[0]), np.array(V[1]), np.array(V[2])
+	mask_zeros = Vrad != 0
+	Vrad = Vrad[mask_zeros]
+	Vtan = Vtan[mask_zeros]
+
 	nrings = len(rings_pos)
 	n_annulus = nrings - 1  
 	[ny,nx] = shape
@@ -42,6 +46,10 @@ def bidi_models(vmode,shape,V, pa, inc, x0, y0, Vsys, rings_pos, ring_space,pixe
 
 
 	def interpolation(V_k):
+
+		nrings = len(V_k)
+		n_annulus = nrings - 1 
+
 		interp_model = np.zeros((ny,nx))
 		for N in range(n_annulus):
 
@@ -111,7 +119,6 @@ def bidi_models(vmode,shape,V, pa, inc, x0, y0, Vsys, rings_pos, ring_space,pixe
 
 
 	return Vcirc_2D, Vrad_2D, Vtan_2D, r_n
-
 
 
 
