@@ -110,8 +110,8 @@ def M_tab(pa,inc,x0,y0,theta_b,rings, delta,k, shape, vel_map, pixel_scale=1,vmo
 	Y = np.arange(0, ny, 1)
 	xy_mesh = np.meshgrid(X,Y)
 
-
-	e_vel = np.ones((ny,nx))*5
+	evel_map[evel_map == 0] = np.nan
+	#e_vel = np.ones((ny,nx))*5
 	vel_val = vel_map
 
 	if vmode == "circular":
