@@ -59,6 +59,7 @@ def rotcur(galaxy, vel_map2D,evel_map,SN,VSYS,PA,INC,X0,Y0,n_it =5, pixel_scale=
 	mask_vel=np.divide(evel_map,evel_map)
 
 	vel_ha = filter_SN(vel_map,evel_map, SN)
+	evel_map = evel_map_copy
 	#plt.imshow(vel_ha)
 	#plt.show()
 	#vel_ha = vel_map*mask_vel
