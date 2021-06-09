@@ -61,7 +61,7 @@ def circ_mod(vel, evel, guess0, vary, n_it, rstart, rfinal, ring_space, frac_pix
 				fpix = pixels(shape,vel,pa0,inc0,x0,y0,ring, delta=delta,pixel_scale = pixel_scale)
 				if fpix > frac_pixel:
 
-					v_rot_k,v_rad_k,v_tan_k = M_tab(pa0,inc0,x0,y0,theta_b,ring, delta,index, shape, vel-vsys0, pixel_scale=pixel_scale,vmode = vmode)
+					v_rot_k,v_rad_k,v_tan_k = M_tab(pa0,inc0,x0,y0,theta_b,ring, delta,index, shape, vel-vsys0, evel, pixel_scale=pixel_scale,vmode = vmode)
 
 					vrot_tab = np.append(vrot_tab,v_rot_k)
 					R_pos = np.append(R_pos,ring)
