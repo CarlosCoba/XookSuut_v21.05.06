@@ -71,7 +71,7 @@ def bisym_mod(vel, evel, guess0, vary, n_it, rstart, rfinal, ring_space, frac_pi
 							# Create bisymetric model
 						try:
 
-							v_rot_k,v_rad_k,v_tan_k = M_tab(pa0,inc0,x0,y0,theta_b,ring, delta,index, shape, vel-vsys0, pixel_scale=pixel_scale,vmode = vmode)
+							v_rot_k,v_rad_k,v_tan_k = M_tab(pa0,inc0,x0,y0,theta_b,ring, delta,index, shape, vel-vsys0, evel, pixel_scale=pixel_scale,vmode = vmode)
 
 							vrot_tab = np.append(vrot_tab,v_rot_k)
 							vrad_tab = np.append(vrad_tab,v_rad_k)
@@ -86,7 +86,7 @@ def bisym_mod(vel, evel, guess0, vary, n_it, rstart, rfinal, ring_space, frac_pi
 
 							# Create ciruclar model
 
-							v_rot_k,v_rad_k,v_tan_k = M_tab(pa0,inc0,x0,y0,theta_b,ring, delta,index, shape, vel-vsys0, pixel_scale=pixel_scale,vmode = "circular")
+							v_rot_k,v_rad_k,v_tan_k = M_tab(pa0,inc0,x0,y0,theta_b,ring, delta,index, shape, vel-vsys0, evel, pixel_scale=pixel_scale,vmode = "circular")
 							vrot_tab = np.append(vrot_tab,v_rot_k)
 							vrad_tab = np.append(vrad_tab,0)
 							vtan_tab = np.append(vtan_tab,0)
